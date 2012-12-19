@@ -1,6 +1,6 @@
-package fantasist.InterviewProblems.passed;
+package fantasist.InterviewProblems.leetcode.passed;
 
-import fantasist.InterviewProblems.definitions.TreeNode;
+import fantasist.InterviewProblems.leetcode.definitions.TreeNode;
 
 public class SameTree {
     public boolean isSameTree(TreeNode p, TreeNode q) {

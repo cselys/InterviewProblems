@@ -1,4 +1,4 @@
-package fantasist.InterviewProblems.passed;
+package fantasist.InterviewProblems.leetcode.passed;
 
 import java.util.Stack;
 

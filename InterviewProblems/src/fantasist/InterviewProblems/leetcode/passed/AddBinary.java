@@ -1,4 +1,4 @@
-package fantasist.InterviewProblems.passed;
+package fantasist.InterviewProblems.leetcode.passed;
 
 public class AddBinary {
     public String addBinary(String a, String b) {

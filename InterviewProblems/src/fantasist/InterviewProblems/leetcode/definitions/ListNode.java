@@ -1,4 +1,4 @@
-package fantasist.InterviewProblems.definitions;
+package fantasist.InterviewProblems.leetcode.definitions;
 
 public class ListNode {
 	 public int val;

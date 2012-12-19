@@ -1,7 +1,9 @@
 package fantasist.InterviewProblems.other;
 
+//TODO
+
 public class PowerAllDouble {
-	private static final double epsilon = 0.000001;
+//	private static final double epsilon = 0.000001;
 
 	double power(double a, double x) {
 		
