@@ -1,5 +1,6 @@
-package fantasist.InterviewProblems.coding;
+package fantasist.InterviewProblems.leetcode.failed;
 
+//TLE on large
 public class WildcardMatching {
 	
     public boolean isMatch(String s, String p) {
@@ -17,42 +18,52 @@ public class WildcardMatching {
     		return false;
     	}
     	
-    	boolean[][] matrix = new boolean[p.length()][s.length()];
+    	boolean[][] matrix = new boolean[2][s.length()];
+    	boolean[] allStar = new boolean[p.length()];
+    	for (int i = 0; i < p.length(); i++) {
+    		if (i == 0 && p.charAt(i) == '*') {
+    			allStar[i] = true;
+    		} else if (p.charAt(i) == '*' && allStar[i-1] == true) {
+    			allStar[i] = true;
+    		} else {
+    			allStar[i] = false;
+    		}
+    	}
     	for (int i = 0; i < p.length(); i++) {
     		for (int j = 0; j < s.length(); j++) {
     			if (p.charAt(i) == '*') {
     				if (i == 0) {
-    					matrix[i][j] = true;
+    					matrix[1][j] = true;
     				} else {
-	    				if (j > 0 && matrix[i][j-1] == true) {
-	    					matrix[i][j] = true;
-	    				} else if (j > 0 && matrix[i-1][j-1] == true) {
-	    					matrix[i][j] = true;
-	    				} else if (matrix[i-1][j] == true) {
-	    					matrix[i][j] = true;
+	    				if (j > 0 && matrix[1][j-1] == true) {
+	    					matrix[1][j] = true;
+	    				} else if (j > 0 && matrix[0][j-1] == true) {
+	    					matrix[1][j] = true;
+	    				} else if (matrix[0][j] == true) {
+	    					matrix[1][j] = true;
 	    				}
     				}
     			} else if (p.charAt(i) == '?' || p.charAt(i) == s.charAt(j)) {
     				if (i == 0 && j == 0) {
-    					matrix[i][j] = true;
-    				} else if (i > 0 && j > 0 && matrix[i-1][j-1] == true) {
-    					matrix[i][j] = true;
-    				} else if (i > 0 && p.charAt(i-1) == '*' && matrix[i-1][j] == true) {
-    					matrix[i][j] = true;
-    					int k = i - 2;
-    					while(k >= 0) {
-    						if (p.charAt(k) != '*') {
-    							matrix[i][j] = false;
-    							break;
-    						}
-    						k--;
-    					}
+    					matrix[1][j] = true;
+    				} else if (i > 0 && j > 0 && matrix[0][j-1] == true) {
+    					matrix[1][j] = true;
+    				} else if (i > 0 && p.charAt(i-1) == '*' && matrix[0][j] == true) {
+    					if (allStar[i-1])
+    						matrix[1][j] = true;
+    					else
+    						matrix[1][j] = false;
     				}
     			}
     		}
+    		
+    		for (int j = 0; j < s.length(); j++) {
+    			matrix[0][j] = matrix[1][j];
+    			matrix[1][j] = false;
+    		}
     	}
     	
-    	return matrix[p.length()-1][s.length()-1];
+    	return matrix[0][s.length()-1];
     }
 
 	public boolean isMatch_recursive(String s, String p) {
