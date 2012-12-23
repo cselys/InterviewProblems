@@ -1,6 +1,6 @@
 package fantasist.InterviewProblems.leetcode.passed;
 
-import fantasist.InterviewProblems.leetcode.definitions.ListNode;
+import fantasist.InterviewProblems.leetcode.utils.ListNode;
 
 public class MergeTwoSortedLists {
 

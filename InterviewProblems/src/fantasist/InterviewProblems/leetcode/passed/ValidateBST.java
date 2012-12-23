@@ -1,6 +1,6 @@
 package fantasist.InterviewProblems.leetcode.passed;
 
-import fantasist.InterviewProblems.leetcode.definitions.TreeNode;
+import fantasist.InterviewProblems.leetcode.utils.TreeNode;
 
 public class ValidateBST {
 
