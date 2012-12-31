@@ -11,7 +11,9 @@ public class FirstMissingPositive {
         	if (num > 0 && num <= len) {
         		A[i] = A[num-1];
         		A[num-1] = num;
-        		if (num-1 != i && A[i] != num)
+//        		if (num-1 != i && A[i] != num)
+//        			i--;
+        		if (A[i] != num)
         			i--;
         	}
         	else
