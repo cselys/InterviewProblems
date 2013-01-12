@@ -2,69 +2,53 @@ package fantasist.InterviewProblems.leetcode.failed;
 
 public class WildcardMatching {
 
-	//TLE on large
-    public boolean isMatch(String s, String p) {
+	public boolean isMatch(String s, String p) {
     	if (s == null || p == null)
     		return false;
-    	if (s.isEmpty() && p.isEmpty()) {
+    	if (s.isEmpty() && p.isEmpty()) {	//Both are empty string -> true
     		return true;
-    	} else if (s.isEmpty()) {
+    	} else if (s.isEmpty()) {	// If s is empty, p must not contain any character other than '*'
     		for (int i = 0; i < p.length(); i++) {
     			if (p.charAt(i) != '*')
     				return false;
     		}
     		return true;
-    	} else if (p.isEmpty()) {
+    	} else if (p.isEmpty()) {	// If p is empty, return false
     		return false;
     	}
     	
-    	boolean[][] matrix = new boolean[2][s.length()];
-    	boolean[] allStar = new boolean[p.length()];
-    	for (int i = 0; i < p.length(); i++) {
-    		if (i == 0 && p.charAt(i) == '*') {
-    			allStar[i] = true;
-    		} else if (p.charAt(i) == '*' && allStar[i-1] == true) {
-    			allStar[i] = true;
-    		} else {
-    			allStar[i] = false;
-    		}
-    	}
-    	for (int i = 0; i < p.length(); i++) {
-    		for (int j = 0; j < s.length(); j++) {
-    			if (p.charAt(i) == '*') {
-    				if (i == 0) {
-    					matrix[1][j] = true;
-    				} else {
-	    				if (j > 0 && matrix[1][j-1] == true) {
-	    					matrix[1][j] = true;
-	    				} else if (j > 0 && matrix[0][j-1] == true) {
-	    					matrix[1][j] = true;
-	    				} else if (matrix[0][j] == true) {
-	    					matrix[1][j] = true;
-	    				}
-    				}
-    			} else if (p.charAt(i) == '?' || p.charAt(i) == s.charAt(j)) {
-    				if (i == 0 && j == 0) {
-    					matrix[1][j] = true;
-    				} else if (i > 0 && j > 0 && matrix[0][j-1] == true) {
-    					matrix[1][j] = true;
-    				} else if (i > 0 && p.charAt(i-1) == '*' && matrix[0][j] == true) {
-    					if (allStar[i-1])
-    						matrix[1][j] = true;
-    					else
-    						matrix[1][j] = false;
-    				}
+    	char[] pArr = p.toCharArray();
+    	char[] sArr = s.toCharArray();
+    	// handles test cases like s = "c", p = "*?*?"
+    	int leadingStars = -1;
+    	while (++leadingStars < pArr.length && pArr[leadingStars] == '*') {}
+    	leadingStars--;
+    	
+    	boolean[][] T = new boolean[2][pArr.length];
+    	for (int i = 0; i < sArr.length; i++) {
+    		for (int j = 0; j < pArr.length; j++) {
+    			char c = pArr[j];
+    			if (c == '*') {
+    				T[1][j] = (i > 0 ? T[0][j] : false)
+    						|| ((i > 0 && j > 0) ? T[0][j-1] : false)
+    						|| (j > 0 ? T[1][j-1] : true)
+    						|| ((i == 0 && j == 0) ? true : false);
+    			} else if (c == '?' || c == sArr[i]) {
+    				T[1][j] = ((i > 0 && j > 0) ? T[0][j-1] : false)
+    						|| ((i == 0 && j == 0) ? true : false)
+    						|| ((leadingStars >= 0 && leadingStars == j - 1) ? true : false);
+    			} else {
+    				T[1][j] = false;
     			}
     		}
     		
-    		for (int j = 0; j < s.length(); j++) {
-    			matrix[0][j] = matrix[1][j];
-    			matrix[1][j] = false;
-    		}
+    		boolean[] temp = T[0];
+    		T[0] = T[1];
+    		T[1] = temp;
     	}
-    	
-    	return matrix[0][s.length()-1];
-    }
+		
+    	return T[0][pArr.length-1];
+	}
 
 	public boolean isMatch_recursive(String s, String p) {
 		if (s == null || p == null)
@@ -105,7 +89,7 @@ public class WildcardMatching {
 	public void testMatch(String s, String p, boolean expected) {
 		boolean ans = isMatch(s, p);
 		if (ans != expected)
-			System.out.println("Test of s=\"" + s + "\" p=\"" + p + "\" failed!");
+			System.out.println("Test of s=\"" + s + "\" p=\"" + p + "\" failed! (Expected " + (expected ? "true" : "false") + ")");
 	}
 
 }
