@@ -2,6 +2,7 @@ package fantasist.InterviewProblems.leetcode.failed;
 
 public class WildcardMatching {
 
+	// DP solution Should be O(NM) complexity. But timed out on large test (A similar C++ version was accepted)
 	public boolean isMatch(String s, String p) {
     	if (s == null || p == null)
     		return false;

@@ -2,6 +2,7 @@ package fantasist.InterviewProblems.leetcode.failed;
 
 public class ScrambleString {
 
+	// Recursive solution times out on large test set.
     public boolean isScramble_recursive(String s1, String s2) {
         if (s1 == null || s2 == null)
         	return false;

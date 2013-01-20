@@ -1,4 +1,4 @@
-package fantasist.InterviewProblems.leetcode.failed;
+package fantasist.InterviewProblems.leetcode.passed;
 
 import java.util.ArrayList;
 
