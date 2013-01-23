@@ -3,7 +3,7 @@ package fantasist.InterviewProblems.leetcode.failed;
 public class WildcardMatching {
 
 	// DP solution Should be O(NM) complexity. But timed out on large test (A similar C++ version was accepted)
-	public boolean isMatch(String s, String p) {
+	public boolean isMatch_DP(String s, String p) {
     	if (s == null || p == null)
     		return false;
     	if (s.isEmpty() && p.isEmpty()) {	//Both are empty string -> true
@@ -57,14 +57,14 @@ public class WildcardMatching {
 		if (p.isEmpty() && s.isEmpty())
 			return true;
 		else if (s.isEmpty() && p.charAt(0) == '*')
-			return isMatch(s, p.substring(1));
+			return isMatch_DP(s, p.substring(1));
 		else if (s.isEmpty() || p.isEmpty())
 			return false;
 		
 		if (p.charAt(0) == '*') {
-			return isMatch(s.substring(1), p) || isMatch(s.substring(1), p.substring(1)) || isMatch(s, p.substring(1));
+			return isMatch_DP(s.substring(1), p) || isMatch_DP(s.substring(1), p.substring(1)) || isMatch_DP(s, p.substring(1));
 		} else if (p.charAt(0) == '?' || p.charAt(0) == s.charAt(0)) {
-			return isMatch(s.substring(1), p.substring(1));
+			return isMatch_DP(s.substring(1), p.substring(1));
 		} else {
 			return false;
 		}
@@ -88,7 +88,7 @@ public class WildcardMatching {
 	}
 	
 	public void testMatch(String s, String p, boolean expected) {
-		boolean ans = isMatch(s, p);
+		boolean ans = isMatch_DP(s, p);
 		if (ans != expected)
 			System.out.println("Test of s=\"" + s + "\" p=\"" + p + "\" failed! (Expected " + (expected ? "true" : "false") + ")");
 	}

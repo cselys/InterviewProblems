@@ -5,7 +5,8 @@ import fantasist.InterviewProblems.leetcode.utils.ListNode;
 public class ReverseNodesInKGroup {
 
 	// It does not match the rule in leetcode by reversing groups
-	//   less than K as well. But the code should be correct.
+	//   less than K as well. But the code should be correct and I
+	//   really don't want to modify it.
     public ListNode reverseKGroup(ListNode head, int k) {
     	if (k <= 1)
     		return head;
