@@ -2,6 +2,7 @@ package fantasist.InterviewProblems.leetcode.passed;
 
 public class StrStr {
 
+    // Brute force solution with O(n^2) complexity
     public String strStr(String haystack, String needle) {
     	if (haystack == null || needle == null)
     		return null;
